@@ -2,7 +2,10 @@
 @section('title', 'Products')
 @section('content')
 <p class="btn-holder">
-  <a href="{{ url('/add') }}" class="btn btn-warning btn-block text-center" role="button">Добавить товар</a>
+	<a href="{{ url('/add') }}" class="btn btn-warning btn-block text-center" role="button">Добавить товар</a>
+	<a href="{{ url('/showShoppingCart')}}" class="btn btn-warning btn-block text-center" role="button">Перейти в корзину
+    <span class="badge">{{Session::has('cart') ? Session::get('cart')->quantity : ''}}</span>
+</a>
 </p>
 <div class="container products">
  <div class="row">
