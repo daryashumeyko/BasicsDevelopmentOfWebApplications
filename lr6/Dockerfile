@@ -4,7 +4,7 @@ FROM php:7.4.3-fpm-alpine
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # Для установки модулей используем команду docker-php-ext-install.
 # На каждый RUN создается новый слой в образе, поэтому рекомендуется объединять команды.
-RUN docker-php-ext-install pdo
+RUN docker-php-ext-install pdo mysqli pdo_mysql
 
 # Указываем рабочую директорию для PHP
 WORKDIR /var/www
