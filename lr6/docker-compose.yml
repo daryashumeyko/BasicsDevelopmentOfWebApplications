@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+ nginx:
+   # используемый образ nginx
+   image: nginx:alpine
+   # монтируем директории, слева директории на основной машине, 
+   # справа - куда они монтируются в контейнере
+   volumes:
+     - ./www:/var/www
+     - ./nginx/conf.d:/etc/nginx/conf.d
+     - ./logs:/var/log/nginx
+   # маршрутизируем порты
+   ports:
+     - 8080:80
+     - 443:443
+   depends_on:
+     - php
+
+ php:
+   build:
+     context: .
+   volumes:
+     - ./www:/var/www
+   ports:
+     - 9000:9000
