@@ -1,6 +1,12 @@
 version: "3.2"
 
 services:
+ app:
+   build:
+     context: .
+   volumes:
+     - ./www:/var/www
+
  nginx:
    # используемый образ nginx
    image: nginx:alpine
@@ -30,7 +36,7 @@ services:
  db:
    image: mysql:5.7.22
    ports:
-    - 3307:3306
+     - 3307:3306
    environment:
-     MYSQL_DATABASE: laravel
+     MYSQL_DATABASE: lab_laravel
      MYSQL_ROOT_PASSWORD: root 
