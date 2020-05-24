@@ -1,10 +1,13 @@
 # Для начала указываем исходный образ, он будет использован как основа
-FROM php:7.4.3-fpm-alpine
+FROM php:7.4.5-fpm
 
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # Для установки модулей используем команду docker-php-ext-install.
 # На каждый RUN создается новый слой в образе, поэтому рекомендуется объединять команды.
-RUN docker-php-ext-install pdo mysqli pdo_mysql
+RUN docker-php-ext-install pdo mysqli pdo_mysql && \
+pecl install -o -f redis \
+&& rm -rf /tmp/pear \
+&& docker-php-ext-enable redis
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 	

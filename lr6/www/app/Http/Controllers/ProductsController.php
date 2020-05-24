@@ -11,13 +11,16 @@ class ProductsController extends Controller
 {
     public function index()
     {
-       $products = Product::all();
-       return view('products', compact('products'));
+	    if(\Cache::get('products')==null) 
+        \Cache::put('products', Product::all());
+	    $products = \Cache::get('products');
+        return view('products', compact('products'));
     }
 	
 	public function delete($id)
 	{
 		Product::find($id)->delete();
+		\Cache::put('products', null);
 		return redirect()->intended('/');
 	}
 	
@@ -29,6 +32,7 @@ class ProductsController extends Controller
 		$product->photo = $request->input('photo');
 		$product->price = (float)$request->input('price');
 		$product->save();
+		\Cache::put('products', null);
 		return redirect()->intended('/');
 	}
 	
